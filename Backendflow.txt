@@ -27,3 +27,8 @@ Add gitIgnore file through Shift+Command+P (AddgitIgnore)
 step 8 
 Setup text formatting Prettier
 type command+, and tick the formatting on save checkbox
+
+step8 
+install Express Dependency
+npm i express or npm install express --legacy-peer-deps
+npm i -D @types/express
