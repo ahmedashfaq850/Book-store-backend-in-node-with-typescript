@@ -1,0 +1,18 @@
+step 1
+npm init 
+
+step 2
+Install Dev Dependencies for Project 
+npm install -D typescript nodemon ts-node @types/node
+
+step 3
+Configure Typescript 
+npx tsc --initstep
+
+step 4 
+Add dev Script in package.json file Under Scripts object
+"dev": "nodemon server.ts"
+
+step 5 
+To run Server 
+npm run dev
