@@ -16,3 +16,7 @@ Add dev Script in package.json file Under Scripts object
 step 5 
 To run Server 
 npm run dev
+
+step 6
+Setup Eslint
+npm init @eslint/config@latest
