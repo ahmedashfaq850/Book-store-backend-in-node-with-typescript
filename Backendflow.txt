@@ -20,3 +20,10 @@ npm run dev
 step 6
 Setup Eslint
 npm init @eslint/config@latest
+
+step 7 
+Add gitIgnore file through Shift+Command+P (AddgitIgnore)
+
+step 8 
+Setup text formatting Prettier
+type command+, and tick the formatting on save checkbox
