@@ -28,7 +28,10 @@ step 8
 Setup text formatting Prettier
 type command+, and tick the formatting on save checkbox
 
-step8 
+step 9
 install Express Dependency
 npm i express or npm install express --legacy-peer-deps
-npm i -D @types/express
+npm i -D @types/express --legacy-peer-deps
+
+step 10
+add dotenv package
