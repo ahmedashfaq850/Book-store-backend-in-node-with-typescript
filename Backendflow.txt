@@ -35,3 +35,61 @@ npm i -D @types/express --legacy-peer-deps
 
 step 10
 add dotenv package
+
+step 11 
+
+create a express instance in app.ts file  
+import express from 'express'
+const app = express()
+export default app
+
+
+now call the app in server.ts and run the server
+import app from './src/app'
+
+const startServer = () => {
+  const port = process.env.PORT || 3000
+
+  app.listen(port, () => {
+    console.log('Server is running on port', port)
+  })
+}
+
+startServer()
+
+
+step 12
+Configuration file setup
+import {config as dotenvConfig} from 'dotenv'
+dotenvConfig()
+
+// config is already defined in the global scope, so we can't use it as a variable name
+const _config = {
+    port: process.env.PORT || 3000,
+}
+export const config = Object.freeze(_config) // freeze the object to prevent modification
+
+
+This is how we use config object in server.ts file 
+import app from './src/app'
+import { config } from './src/config/config'
+
+const startServer = () => {
+  const port = config.port || 3000
+
+  app.listen(port, () => {
+    console.log('Server is running on port', port)
+  })
+}
+
+startServer()
+
+
+
+
+step 13 
+npm install dotenv --force (To ignore conflict with dependencies)
+pm i -D @types/dotenv --force
+create .env file in root 
+
+
