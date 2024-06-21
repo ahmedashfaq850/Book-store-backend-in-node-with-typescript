@@ -84,12 +84,14 @@ const startServer = () => {
 
 startServer()
 
-
-
-
 step 13 
 npm install dotenv --force (To ignore conflict with dependencies)
 pm i -D @types/dotenv --force
 create .env file in root 
 
 
+step 14
+setup Mongo DB
+npm i mongoose
+npm i -D mongoose
+Now create a db.ts file in config folder
