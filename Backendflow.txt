@@ -95,3 +95,9 @@ setup Mongo DB
 npm i mongoose
 npm i -D mongoose
 Now create a db.ts file in config folder
+
+
+step 15 
+create an Global Handler for error handling
+npm i http-errors
+npm i -D @types/http-errors

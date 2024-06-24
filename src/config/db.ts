@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import { config } from './config'
-import e from 'express'
 
 export const connectDB = async () => {
   try {
