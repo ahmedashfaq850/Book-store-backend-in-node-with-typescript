@@ -5,7 +5,8 @@ dotenvConfig()
 const _config = {
     port: process.env.PORT || 3000,
     databaseUrl: process.env.MONGO_URI,
-    env: process.env.NODE_ENV
+    env: process.env.NODE_ENV,
+    jwtSecret: process.env.JWT_SECRET,
 }
 
 export const config = Object.freeze(_config) // freeze the object to prevent modification

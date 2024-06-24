@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import createHttpError from 'http-errors'
 import userModel from './userModel'
 import bcrypt from 'bcrypt'
+import { sign } from 'jsonwebtoken'
+import { config } from '../config/config'
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   // steps to write controller
@@ -11,6 +13,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const error = createHttpError(400, 'All fields are required')
     return next(error)
   }
+
+  // 2. Logic
   // check if user already exists
   const user = await userModel.findOne({ email })
   if (user) {
@@ -22,17 +26,17 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const hashPassword = await bcrypt.hash(password, 10)
 
   // create user
-  const newUser = userModel.create({
+  const newUser = await userModel.create({
     name,
     email,
     password: hashPassword,
-  });
+  })
 
-  // JWT Token 
+  // JWT Token
+  const token = sign({ sub: newUser._id }, config.jwtSecret as string, {expiresIn: '7d'})
 
-  // 2. Logic
-  // 3. Response
-  res.json({ message: 'User registered' })
+  //Response
+  res.json({ accessToken: token })
 }
 
 export { createUser }
