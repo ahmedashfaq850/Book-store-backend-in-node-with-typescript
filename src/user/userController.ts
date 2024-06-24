@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import createHttpError from 'http-errors'
 import userModel from './userModel'
+import bcrypt from 'bcrypt'
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   // steps to write controller
@@ -16,6 +17,19 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const error = HttpError(400, 'User already exists')
     return next(error)
   }
+
+  // Hash password
+  const hashPassword = await bcrypt.hash(password, 10)
+
+  // create user
+  const newUser = userModel.create({
+    name,
+    email,
+    password: hashPassword,
+  });
+
+  // JWT Token 
+
   // 2. Logic
   // 3. Response
   res.json({ message: 'User registered' })
