@@ -182,3 +182,8 @@ const files = req.files as { [fieldname: string]: Express.Multer.File[] }
 
 // step 20
 create a authentication middleware to verify accessToken
+
+// step 21
+to solve CORS issue
+npm install cors --force  
+pm install -D @types/cors --force
