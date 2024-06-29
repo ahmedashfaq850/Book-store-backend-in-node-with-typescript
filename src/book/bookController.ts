@@ -169,6 +169,17 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const books = await bookModel.find()
+    res.status(200).json(books)
+  } catch (error) {
+    return next(
+      createHttpError(500, 'An error occurred while fetching the books')
+    )
+  }
+}
+
 const deleteBook = async (req: Request, res: Response, next: NextFunction) => {}
 
-export { createBook, updateBook, deleteBook }
+export { createBook, updateBook, deleteBook, getBooks }
