@@ -12,8 +12,9 @@ app.get('/', (req, res, next) => {
   res.json({ message: 'Hello World' })
 })
 
-// register userRouter
+// register routers
 app.use('/api/users', userRouter)
+
 
 // Global Error Handler
 app.use(globalErrorHandler)
