@@ -51,7 +51,14 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       expiresIn: '7d',
     })
     //Response
-    res.json({ accessToken: token })
+    res.json({
+      accessToken: token,
+      user: {
+        name: newUser.name,
+        email: newUser.email,
+      },
+      message: 'User registered successfully',
+    })
   } catch (error) {
     return next(
       createHttpError(500, 'Something went wrong while generating token')

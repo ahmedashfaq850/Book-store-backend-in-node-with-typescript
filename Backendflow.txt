@@ -26,7 +26,7 @@ Add gitIgnore file through Shift+Command+P (AddgitIgnore)
 
 step 8 
 Setup text formatting Prettier
-type command+, and tick the formatting on save checkbox
+type command and , and tick the formatting on save checkbox
 
 step 9
 install Express Dependency
@@ -37,7 +37,6 @@ step 10
 add dotenv package
 
 step 11 
-
 create a express instance in app.ts file  
 import express from 'express'
 const app = express()
@@ -101,3 +100,15 @@ step 15
 create an Global Handler for error handling
 npm i http-errors
 npm i -D @types/http-errors
+
+step 16
+Now use this Global Handler Error middleware in the app.ts file
+app.use(globalErrorHandler)
+
+step 17 
+to user this global error
+  const error = createHttpError(500, 'Internal new Server Error')
+  throw error
+
+step 18
+now follow the folder structure that create a folder for an endpoint and write that endpoint (router file, controller file, model file, type safety file in that folder)
