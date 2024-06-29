@@ -143,3 +143,42 @@ bookRouter.post(
 
 and this is how we can access this in controller
 console.log(req.files)
+// Create a multer type in typescript
+const files = req.files as { [fieldname: string]: Express.Multer.File[] }
+// Upload cover images to Cloudinary
+    const coverImageType = files.coverImage[0].mimetype.split('/').pop()
+    const coverFileName = files.coverImage[0].filename
+    const coverFilePath = path.resolve(
+      __dirname,
+      '../../public/data/uploads',
+      coverFileName
+    )
+
+    const uploadCoverImage = await cloudinary.uploader.upload(coverFilePath, {
+      folder: 'book-covers',
+      filename_override: coverFileName,
+      format: coverImageType,
+    })
+
+    // Upload PDF files to Cloudinary
+    const bookFileName = files.file[0].filename
+    const bookFilePath = path.resolve(
+      __dirname,
+      '../../public/data/uploads',
+      bookFileName
+    )
+
+    const uploadPdf = await cloudinary.uploader.upload(bookFilePath, {
+      folder: 'books',
+      resource_type: 'raw',
+      filename_override: bookFileName,
+      format: 'pdf',
+    })
+
+ // Delete temporary files from the server
+    await fs.promises.unlink(coverFilePath)
+    await fs.promises.unlink(bookFilePath)
+
+
+// step 20
+create a authentication middleware to verify accessToken

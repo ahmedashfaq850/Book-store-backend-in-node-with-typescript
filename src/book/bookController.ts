@@ -6,6 +6,7 @@ import cloudinary from '../config/cloudinary'
 import createHttpError from 'http-errors'
 import bookModel from './bookModel'
 import { promises } from 'node:dns'
+import { AuthRequest } from '../middlewares/authenticate'
 
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   const { title, genre } = req.body
@@ -49,11 +50,13 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
       format: 'pdf',
     })
 
+    const _req = req as AuthRequest
+
     // Insert book into the database
     const newBook = await bookModel.create({
       title,
       genre,
-      author: '66797ace8d8f50ce3af1d609',
+      author: _req.userId,
       coverImage: uploadCoverImage.secure_url,
       file: uploadPdf.secure_url,
     })
