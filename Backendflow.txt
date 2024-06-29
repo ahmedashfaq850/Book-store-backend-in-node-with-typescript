@@ -112,3 +112,14 @@ to user this global error
 
 step 18
 now follow the folder structure that create a folder for an endpoint and write that endpoint (router file, controller file, model file, type safety file in that folder)
+
+
+Key Point
+if we are using file in our rest api then will not send json data will send form data
+
+step 19
+for this we have to install library multer for multi part data
+npm i multer --force
+npm i -D @types/multer --force
+Key Point
+multer is a middleware so we can send in router as second parameter and middleware is nothing but a callback function
