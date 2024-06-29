@@ -180,6 +180,21 @@ const getBooks = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const bookId = req.params.bookId
+    const book = await bookModel.findOne({ _id: bookId })
+    if (!book) {
+      return next(createHttpError(404, 'Book not found'))
+    }
+    res.status(200).json(book)
+  } catch (error) {
+    return next(
+      createHttpError(500, 'An error occurred while fetching the book')
+    )
+  }
+}
+
 const deleteBook = async (req: Request, res: Response, next: NextFunction) => {}
 
-export { createBook, updateBook, deleteBook, getBooks }
+export { createBook, updateBook, deleteBook, getBooks, getBook }
