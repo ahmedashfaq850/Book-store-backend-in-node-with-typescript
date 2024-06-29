@@ -195,6 +195,53 @@ const getBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-const deleteBook = async (req: Request, res: Response, next: NextFunction) => {}
+const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const bookId = req.params.bookId
+    const book = await bookModel.findOne({ _id: bookId })
+    if (!book) {
+      return next(createHttpError(404, 'Book not found'))
+    }
+
+    // check if author is the owner of the book
+    const _req = req as AuthRequest
+    if (book.author.toString() !== _req.userId) {
+      return next(
+        createHttpError(403, 'You are not authorized to delete this book')
+      )
+    }
+
+    // Now first delete the book from the cloudinary
+    // to delete files from cloudinary first get the public_id
+    const coverFileSplit = book.coverImage.split('/')
+    const coverPublicId =
+      coverFileSplit.at(-2) + '/' + coverFileSplit.at(-1)?.split('.')[0]
+
+    const bookFileSplit = book.file.split('/')
+    const bookPublicId = bookFileSplit.at(-2) + '/' + bookFileSplit.at(-1)
+
+    // delete the files from cloudinary
+    try {
+      await cloudinary.uploader.destroy(coverPublicId)
+      await cloudinary.uploader.destroy(bookPublicId)
+
+      // Now delete the book from the database
+      await bookModel.deleteOne({ _id: bookId })
+
+      res.status(200).json({ message: 'Book deleted successfully' })
+    } catch (error) {
+      next(
+        createHttpError(
+          500,
+          'An error occurred while deleting the book from cloudinary'
+        )
+      )
+    }
+  } catch (error) {
+    return next(
+      createHttpError(500, 'An error occurred while deleting the book')
+    )
+  }
+}
 
 export { createBook, updateBook, deleteBook, getBooks, getBook }
