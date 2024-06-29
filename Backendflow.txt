@@ -123,3 +123,23 @@ npm i multer --force
 npm i -D @types/multer --force
 Key Point
 multer is a middleware so we can send in router as second parameter and middleware is nothing but a callback function
+
+This is how we can create multer function
+// multer storage
+const upload = multer({
+  dest: path.resolve(__dirname, '../../public/data/uploads'),
+  limits: { fileSize: 3e7 },
+})
+
+and this is how it will use in router as middleware
+bookRouter.post(
+  '/create',
+  upload.fields([
+    { name: 'coverImage', maxCount: 1 },
+    { name: 'file', maxCount: 1 },
+  ]),
+  createBook
+)
+
+and this is how we can access this in controller
+console.log(req.files)
