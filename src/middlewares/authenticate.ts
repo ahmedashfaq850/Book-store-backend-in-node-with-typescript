@@ -17,7 +17,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     // verify the token
-    const parseToken = token.split(' ')[1]
+    const parseToken = token.split(' ')[1] // Bearer token number
     // Now decode the token
     const decode = verify(parseToken, config.jwtSecret as string)
     const _req = req as AuthRequest
