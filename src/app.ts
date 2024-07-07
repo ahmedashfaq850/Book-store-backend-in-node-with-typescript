@@ -15,8 +15,8 @@ app.use(
 app.use(express.json())
 // routes
 app.get('/', (req, res, next) => {
-  const error = createHttpError(500, 'Internal new Server Error')
-  throw error
+  /* const error = createHttpError(500, 'Internal new Server Error')
+  throw error */
   res.json({ message: 'Hello World' })
 })
 

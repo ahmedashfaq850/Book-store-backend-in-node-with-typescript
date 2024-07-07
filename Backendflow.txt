@@ -187,3 +187,7 @@ create a authentication middleware to verify accessToken
 to solve CORS issue
 npm install cors --force  
 pm install -D @types/cors --force
+
+// step 22
+Create a Standard Response Class for api response
+Create Async Handler 
